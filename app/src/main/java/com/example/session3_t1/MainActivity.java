@@ -19,16 +19,16 @@ public class MainActivity extends AppCompatActivity {
     ImageButton camera;
     ImageButton ext_storage;
     ImageButton location;
-    ImageButton internet;
+    ImageButton audio;
     ImageButton calender;
-    ImageButton bluetooth;
+    ImageButton call;
 
     private int CAMERA_CODE = 1;
     private int EXT_STORAGE_CODE = 2;
     private int LOCATION_CODE = 3;
-    private int INTERNET_CODE = 4;
+    private int R_AUDIO_CODE = 4;
     private int CALENDER_CODE = 5;
-    private int BLUETOOTH_CODE = 6;
+    private int CALL_CODE = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,15 +74,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        internet = findViewById(R.id.imageButton4);
-        internet.setOnClickListener(new View.OnClickListener() {
+        audio = findViewById(R.id.imageButton4);
+        audio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(MainActivity.this,
-                        Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED) {
+                        Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(MainActivity.this, "You have already granted this permission !", Toast.LENGTH_SHORT).show();
                 } else {
-                    requestInternetPermission();
+                    requestAudioPermission();
                 }
             }
         });
@@ -100,15 +100,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        bluetooth = findViewById(R.id.imageButton6);
-        bluetooth.setOnClickListener(new View.OnClickListener() {
+        call = findViewById(R.id.imageButton7);
+        call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ContextCompat.checkSelfPermission(MainActivity.this,
-                        Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED) {
+                        Manifest.permission.READ_CALL_LOG) == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(MainActivity.this, "You have already granted this permission !", Toast.LENGTH_SHORT).show();
                 } else {
-                    requestBluetoothPermission();
+                    requestCallPermission();
                 }
             }
         });
@@ -189,16 +189,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void requestInternetPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.INTERNET)) {
+    private void requestAudioPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO)) {
 
             new AlertDialog.Builder(this)
                     .setTitle("Permission needed")
-                    .setMessage("This permission is needed to access internet")
+                    .setMessage("This permission is needed to record audio")
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.INTERNET}, INTERNET_CODE);
+                            ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.RECORD_AUDIO}, R_AUDIO_CODE);
                         }
                     })
                     .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
                     .create().show();
 
         } else {
-            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.INTERNET}, INTERNET_CODE);
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.RECORD_AUDIO}, R_AUDIO_CODE);
         }
     }
 
@@ -239,16 +239,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void requestBluetoothPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.BLUETOOTH)) {
+    private void requestCallPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CALL_LOG)) {
 
             new AlertDialog.Builder(this)
                     .setTitle("Permission needed")
-                    .setMessage("This permission is needed to access Bluetooth")
+                    .setMessage("This permission is needed to read call log")
                     .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.BLUETOOTH}, BLUETOOTH_CODE);
+                            ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.READ_CALL_LOG}, CALL_CODE);
                         }
                     })
                     .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
                     .create().show();
 
         } else {
-            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.BLUETOOTH}, BLUETOOTH_CODE);
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_CALL_LOG},CALL_CODE);
         }
     }
 }
